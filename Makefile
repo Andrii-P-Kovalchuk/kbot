@@ -1,5 +1,5 @@
 APP=$(shell basename $(shell git remote get-url origin))
-REGISTRY=europe-docker.pkg.dev/k8s-k3s-405018/eu.gcr.io
+REGISTRY=itehnologandrii
 VERSION=$(shell git describe --tags --abbrev=0)-$(shell git rev-parse --short HEAD)
 TARGETOS=linux #linux darwin windows
 TARGETARCH=amd64 #arm64
