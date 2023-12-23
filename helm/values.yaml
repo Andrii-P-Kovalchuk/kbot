@@ -6,12 +6,12 @@ replicaCount: 1
 
 image:
   repository: itehnologandrii
-  tag: "v1.0.5-e9a236a"
+  tag: "v1.0.6-cad34d0"
   arch: amd64
 
 secret:
   name: "kbot"
   env: "TELE_TOKEN"
-  key: 6729227898:AAGT0kBWFEnu6CgvAWPq9FdUrWiGzhyhfXM
+  key: "token"
 securityContext:
   privileged: true
