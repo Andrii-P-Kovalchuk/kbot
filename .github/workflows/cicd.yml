@@ -3,30 +3,51 @@ name: KBOT-CI-CD
 on: push
 
 jobs:
-    ci:
-        name: CI
-        runs-on: ubuntu-latest
+  ci:
+      name: CI
+      runs-on: ubuntu-latest
 
-        steps:
-            - name: Checkout
-              uses: actions/checkout@v3
-              with:
-                fetch-depth: 0
+      steps:
+          - name: Checkout
+            uses: actions/checkout@v3
+            with:
+              fetch-depth: 0
 
-            - run: go version
+          - run: go version
 
-            - name: Run test
-              run:  make test 
+          - name: Run test
+            run:  make test 
 
-            - name: Docker Hub login
-              uses: docker/login-action@v2
-              with:
-                username: ${{ secrets.DOCKERHUB_USERNAME }} 
-                password: ${{ secrets.DOCKERHUB_TOKEN}}
+          - name: Docker Hub login
+            uses: docker/login-action@v2
+            with:
+              username: ${{ secrets.DOCKERHUB_USERNAME }} 
+              password: ${{ secrets.DOCKERHUB_TOKEN}}
             
-            - name: Build&Push
-              env:
-                APP: "kbot"
-                REGESTRY: ${{ secrets.DOCKERHUB_USERNAME}}
-              run: make image push
+          - name: Build&Push
+            env:
+              APP: "kbot"
+              REGESTRY: ${{ secrets.DOCKERHUB_USERNAME}}
+            run: make image push
 
+  cd:
+    name: CD
+    needs: ci
+    runs-on: ubuntu-latest
+
+    steps:
+
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      - run: echo "VERSION=$(git describe --tags --abbrev=0)-$(git rev-parse --short HEAD)" >> $GITHUB_ENV
+
+      - uses: mikefarah/yq@master
+        with: 
+          cmd: yq -i '/image.tag=strenv(VERSION)' helm/values.yaml
+
+      - run: |
+          git config user.name github-actions
+          git confif user.email github-actions@github.com
+          git commit -am "update version $VERSION"
+          git push
