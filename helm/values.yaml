@@ -5,7 +5,7 @@
 replicaCount: 1
 image:
   repository: itehnologandrii
-  tag: "v1.0.7-bc1809e"
+  tag: "v1.0.7-9bf4f06"
   arch: amd64
 secret:
   name: "kbot"
