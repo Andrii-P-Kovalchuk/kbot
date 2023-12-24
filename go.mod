@@ -1,4 +1,4 @@
-module github.com/Andrii-P-Kovalchuk/kbot
+module github.com/andrii-p-kovalchuk/kbot
 
 go 1.21
 
