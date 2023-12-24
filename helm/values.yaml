@@ -4,9 +4,11 @@
 
 replicaCount: 1
 image:
-  repository: itehnologandrii
-  tag: "v1.0.7-9bf4f06"
+  registry: "ghcr.io"
+  repository: andrii-p-kovalchuk
+  tag: "v1.0.7-bc1809e"
   arch: amd64
+  os: linux
 secret:
   name: "kbot"
   env: "TELE_TOKEN"
