@@ -6,7 +6,7 @@ replicaCount: 1
 image:
   registry: "ghcr.io"
   repository: andrii-p-kovalchuk
-  tag: "v1.0.7-eef3bad"
+  tag: "v1.0.7-871038d"
   arch: amd64
   os: linux
 secret:
