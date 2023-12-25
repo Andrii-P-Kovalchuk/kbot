@@ -1,6 +1,9 @@
 name: KBOT-CI-CD
 
-on: push
+on: 
+  push:
+    branches:
+      - develop
 
 jobs:
   ci:
